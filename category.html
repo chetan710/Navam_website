@@ -22,7 +22,32 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css"/>
 	<link rel="stylesheet" href="css/animate.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAOPh6BesTo_zzPgl2aV92W2y_rmfYAsLY",
+    authDomain: "navam-427c2.firebaseapp.com",
+    databaseURL: "https://navam-427c2-default-rtdb.firebaseio.com",
+    projectId: "navam-427c2",
+    storageBucket: "navam-427c2.appspot.com",
+    messagingSenderId: "413666451256",
+    appId: "1:413666451256:web:d619ba9abad8202a0f2bcd",
+    measurementId: "G-Z75JDGRZGD"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 
 	<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -85,7 +110,7 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>CAtegory PAge</h4>
+			<h4>Category Page</h4>
 			<div class="site-pagination">
 				<a href="">Home</a> /
 				<a href="">Shop</a> /
