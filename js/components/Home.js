@@ -36,11 +36,11 @@ function $loadHeroSlider() {
 }
 
 function $loadLatestDesigns() {
-    return firebase.database().ref('/Jewelleries/').once('value').then(function(snapshot) {
+    return firebase.database().ref('/Products/').once('value').then(function(snapshot) {
         if (snapshot.val()) {
             snapshot.forEach(function(category) {
-                if (category.val() && category.val().imageLatest) {
-                    $(home_page.product_slider).append(createLatestDesignsHTML(category.val().imageURL, category.val().imageName))
+                if (category.val() && category.val().productLatest) {
+                    $(home_page.product_slider).append(createLatestDesignsHTML(category.val().productURL, category.val().productName))
                 }
             });
             createOwlCarouselForProductSlider();
