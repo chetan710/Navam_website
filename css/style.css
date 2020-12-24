@@ -690,6 +690,11 @@ ol {
 	transition: all 0.5s ease 1s;
 }
 
+.hero-slider video {
+    min-width:100%;
+    min-height:100%;
+}
+
 .slide-num-holder {
 	float: right;
 	z-index: 1;
