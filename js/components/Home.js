@@ -30,9 +30,6 @@ function $loadHeroSlider() {
                 }
             });
             createOwlCarouselForHeroSlider();
-            setTimeout(function(){
-                $fadeOutLoader();
-            }, 3000);
             //$loadLatestDesigns();
         }
     });
@@ -47,7 +44,6 @@ function $loadLatestDesigns() {
                 }
             });
             createOwlCarouselForProductSlider();
-            $fadeOutLoader();
         }
     });
 }
@@ -136,6 +132,7 @@ function createOwlCarouselForHeroSlider() {
 
     $(home_page.hero_slider).append('<div class="slider-nav-warp"><div class="slider-nav"></div></div>');
     $(".hero-slider .owl-nav, .hero-slider .owl-dots").appendTo('.slider-nav');
+    $fadeOutLoader();
 }
 
 function createHeroSliderHTML(image,title,desc) {
