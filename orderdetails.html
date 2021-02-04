@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title></title>
+	<title>Navams</title>
 	<meta charset="UTF-8">
-	<meta name="description" content=" ">
+	<meta name="description" content=">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
@@ -56,11 +56,11 @@
 </script>
 </head>
 <body>
-	<!-- Page Preloder -->
+	
+<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
 <!-- Header section -->
 	<header class="header-section">
 		<div class="header-top">
@@ -120,68 +120,61 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>Your cart</h4>
+			<h4>Check out</h4>
 			<div class="site-pagination">
 				<a href="">Home</a> /
-				<a href="">Your cart</a>
+				<a href="">Checkout</a>
 			</div>
 		</div>
 	</div>
 	<!-- Page info end -->
 
 
-	<!-- cart section end -->
-	<section class="cart-section spad">
+	<!-- checkout section  -->
+	<section class="checkout-section spad">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
-					<img class ="empty-cart" src="img/empty-cart.png" alt="empty-cart"/>
-					<div class="cart-table">
+			<div class="col-lg-12 order-2 order-lg-1 message-section" style="display:none">
+			<h1></h1>
+			<p></p>
+			<a href="shop.html"><button class="site-btn">Continue Shoping</button></a>
+			</div>
+				<div class="col-lg-8 order-2 order-lg-1 details-section">
+					<form class="checkout-form">
+						<div class="cf-title">Delivery Details</div>
+						<div class="row address-inputs">
+							<div class="col-md-12">
+							    <input type="text" name="orderid" placeholder="Order Id" disabled>
+								<input type="text" name="name" placeholder="Name" disabled>
+								<input type="text" name="phone" placeholder="Phone no." disabled>
+								<input type="text" name="ordereddate" placeholder="Order Date" disabled>
+								<input type="text" name="address" placeholder="Address" disabled>
+							</div>
+						</div>
+						
+				 <div class="cf-title">Delivery Status</div>
+						<ul class="payment-list">
+							<p>Products will be delevired in 4 to 5 days</p>
+						</ul>
+					</form>
+				</div>
+				<div class="col-lg-4 order-1 order-lg-2 details-section">
+					<div class="checkout-cart">
 						<h3>Your Cart</h3>
-						<div class="cart-table-warp">
-							<table>
-							<thead>
-								<tr>
-									<th class="product-th">Product</th>
-									<th class="quy-th">Quantity</th>
-									<th class="total-th">Availability</th>
-									<th class="total-th">Price</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-						</div>
-						<div class="total-cost">
-							<td class="total-col"><h4>₹456</h4></td>
-						</div>
+						<ul class="product-list">
+							
+						</ul>
+						<ul class="price-list">
+							<li>Total<span></span></li>
+							<li>Shipping<span></span></li>
+							<li class="total">Total<span></span></li>
+						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4 card-right">
-					<a href="checkout.html" class="site-btn">Proceed to checkout</a>
-					<a href="shop.html" class="site-btn sb-dark">Continue shopping</a>
-				</div>
 			</div>
 		</div>
 	</section>
-	<!-- cart section end -->
-
-	<!-- RELATED PRODUCTS section -->
-	<section class="related-product-section">
-		<div class="container">
-			<div class="section-title">
-				<h2>RELATED PRODUCTS</h2>
-			</div>
-			<div class="product-slider owl-carousel">
-				
-			</div>
-		</div>
-	</section>
-	<!-- RELATED PRODUCTS section end -->
-
-
-
-
+	<!-- checkout section end -->
 	<!-- Footer section -->
 	<section class="footer-section">
 		<div class="container">
@@ -240,7 +233,6 @@
 	<!-- Footer section end -->
 
 
-
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -250,6 +242,6 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>
-    <script src="js/components/cart.js"></script>
+    <script src="js/components/orderdetails.js"></script>
 	</body>
 </html>

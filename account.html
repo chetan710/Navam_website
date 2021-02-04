@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title></title>
+	<title>Navams</title>
 	<meta charset="UTF-8">
-	<meta name="description" content=" ">
+	<meta name="description" content=">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
@@ -120,65 +120,56 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>Your cart</h4>
+			<h4>Sign Up</h4>
 			<div class="site-pagination">
 				<a href="">Home</a> /
-				<a href="">Your cart</a>
+				<a href="">Sign up</a>
 			</div>
 		</div>
 	</div>
 	<!-- Page info end -->
 
 
-	<!-- cart section end -->
-	<section class="cart-section spad">
+	<!-- Contact section -->
+	<section class="contact-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
-					<img class ="empty-cart" src="img/empty-cart.png" alt="empty-cart"/>
-					<div class="cart-table">
-						<h3>Your Cart</h3>
-						<div class="cart-table-warp">
-							<table>
-							<thead>
-								<tr>
-									<th class="product-th">Product</th>
-									<th class="quy-th">Quantity</th>
-									<th class="total-th">Availability</th>
-									<th class="total-th">Price</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-						</div>
-						<div class="total-cost">
-							<td class="total-col"><h4>₹456</h4></td>
-						</div>
-					</div>
+				<div class="col-lg-8 contact-info">
+					<h3>Create Account</h3>
+					<form class="contact-form" name="contact-form">
+						<input type="text" name="name" placeholder="First Name">
+						<input type="text" name="lastName" placeholder="Last Name">
+						<input type="text" name="email" placeholder="Email">
+						<input type="password" name="password" placeholder="Your Password">
+						<input type="text" name="zipCode" placeholder="ZIP Code">
+						<input type="text" name="phone" placeholder="Phone">
+						<input type="text" name="altPhoneNumber" placeholder="Alternative Phone">
+						<textarea name="address" placeholder="Address"></textarea>
+						<textarea name="altAddress" placeholder="Alternative Address"></textarea>
+						<button type="button" class="site-btn sign-in-btn create-profile">CREATE ACCOUNT</button>
+					</form>
 				</div>
-				<div class="col-lg-4 card-right">
-					<a href="checkout.html" class="site-btn">Proceed to checkout</a>
-					<a href="shop.html" class="site-btn sb-dark">Continue shopping</a>
+				<div class="col-lg-4 contact-info">
+					<h3 >Sign In to your account</h3>
+					<img  class="user-img"src="img/user.png" width="200px" height="200px" alt="profile"/>
+					<form class="contact-form" name="login-form">
+						<input type="text" name="userName" placeholder="Your registered mailid">
+						<input type="password" name="userPassword" placeholder="Your Password">
+						<button class="site-btn sign-in-btn login">SIGN IN</button>
+					</form>
+					
+				<div contact-info">
+					<h3 class="section-title">Forgot Passowrd ?</h3>
+					<img  class="user-img"src="img/forgot-password.png" width="200px" height="200px" alt="forgot-password"/>
+					<form class="contact-form" name="contact-form">
+						<input type="text" name="email" placeholder="Your registered mailid">
+						<button class="site-btn sign-in-btn reset-password">RESET PASSWORD</button>
+					</form>
+				</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- cart section end -->
-
-	<!-- RELATED PRODUCTS section -->
-	<section class="related-product-section">
-		<div class="container">
-			<div class="section-title">
-				<h2>RELATED PRODUCTS</h2>
-			</div>
-			<div class="product-slider owl-carousel">
-				
-			</div>
-		</div>
-	</section>
-	<!-- RELATED PRODUCTS section end -->
-
+			</section>
+	<!-- Contact section end -->
 
 
 
@@ -241,8 +232,11 @@
 
 
 
+
+
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.slicknav.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
@@ -250,6 +244,6 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>
-    <script src="js/components/cart.js"></script>
+    <script src="js/components/profile.js"></script>
 	</body>
 </html>

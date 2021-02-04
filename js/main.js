@@ -48,31 +48,6 @@
 		$(this).css('background-image', 'url(' + bg + ')');
 	});
 
-	/*------------------
-		Brands Slider
-	--------------------*/
-	$('.product-slider').owlCarousel({
-		loop: true,
-		nav: true,
-		dots: false,
-		margin : 30,
-		autoplay: true,
-		navText: ['<i class="flaticon-left-arrow-1"></i>', '<i class="flaticon-right-arrow-1"></i>'],
-		responsive : {
-			0 : {
-				items: 1,
-			},
-			480 : {
-				items: 2,
-			},
-			768 : {
-				items: 3,
-			},
-			1200 : {
-				items: 4,
-			}
-		}
-	});
 
 
 	/*------------------
@@ -134,30 +109,6 @@
 	maxamount.val('₹' + rangeSlider.slider("values", 1));
 
 
-	/*-------------------
-		Quantity change
-	--------------------- */
-    var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
-
-
-
 	/*------------------
 		Single Product
 	--------------------*/
@@ -176,7 +127,4 @@
 	$('.product-pic-zoom').zoom();
 
 
-$('.product-item').click(function(){
-	window.location.href="product.html"
-})
 })(jQuery);

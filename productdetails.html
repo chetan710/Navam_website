@@ -61,6 +61,7 @@
 		<div class="loader"></div>
 	</div>
 	<!-- Header section -->
+
 <!-- Header section -->
 	<header class="header-section">
 		<div class="header-top">
@@ -76,9 +77,18 @@
 					</div>
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
-							<div class="up-item">
+							<div class="up-item sign-in-profile">
 								<i class="flaticon-profile"></i>
-								<a href="#">Sign</a> In or <a href="#">Create Account</a>
+								<a href="account.html">SignIn Or Create Account</a>
+							</div>
+							
+							<div class="up-item signed-in-profile">
+								<i class="flaticon-profile"></i>
+								<a href="javascript:void(0)"></a>
+							</div>
+							<div class="up-item sign-out-profile">
+								<i class="flaticon-profile"></i>
+								<a href="javascript:void(0)">Sign out</a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
@@ -98,8 +108,9 @@
 				<ul class="main-menu">
 					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
-					<li><a href="category.html">Products</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li><a href="orders.html">My Orders</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -124,7 +135,7 @@
 	<section class="product-section">
 		<div class="container">
 			<div class="back-link">
-				<a href="./category.html"> &lt;&lt; Back to Products</a>
+				<a href="./shop.html"> &lt;&lt; Back to Products</a>
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
@@ -133,36 +144,39 @@
 					</div>
 				</div>
 				<div class="col-lg-6 product-details">
-					<h2 class="p-title">MUSTARD OIL</h2>
-					<h3 class="p-price">₹359.90</h3>
-					<h4 class="p-stock">Available: <span>In Stock</span></h4>
+					<h2 class="p-title"></h2>
+					<h3 class="p-price"></h3>
+					<h4 class="p-stock">Available: <span></span></h4>
+					<div class="filter-widget mb-0">
+						<h2 class="fw-title">Quantity</h2>
+						<div class="fw-size-choose quantities">
+						
+						</div>
+					</div>
 					<div class="p-rating">
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o fa-fade"></i>
+						<i class="fa fa-star-o"></i>
+						(0)
 					</div>
-					<div class="p-review">
+					<!--<div class="p-review">
 						<a href="">3 reviews</a>|<a href="">Add your review</a>
-					</div>
-					<div class="quantity">
+					</div> -->
+					<!--<div class="quantity">
 						<p>Quantity</p>
                         <div class="pro-qty"><input type="text" value="1"></div>
-                    </div>
-					<a href="#" class="site-btn">SHOP NOW</a>
+                    </div> -->
+					<a href="javascript:void(0)" class="site-btn add-card-main">Add To Cart</a>
+					<label style="display:none" class="error">Please select quantity before adding to cart!</label>
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
 							<div class="panel-header" id="headingOne">
 								<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
 							</div>
 							<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-								<div class="panel-body">
-									The term mustard oil is used for two different oils that are made from mustard seeds: A fatty vegetable oil resulting from pressing the seeds, An essential oil resulting from grinding the seeds, mixing them with water, and extracting the resulting volatile oil by distillation. The distinctive pungent taste, characteristic of all plants in the mustard (Brassicaceae) family (for example, cabbage, cauliflower, turnip, radish, horseradish, or wasabi). It is often used for cooking in North India, Eastern India, Nepal, Bangladesh, and Pakistan. In Bengal, Odisha, Assam, Meghalaya, Manipur, and Nepal, it is the traditionally preferred oil for cooking. The oil makes up about 30% of the mustard seeds. It can be produced from black mustard (Brassica nigra), brown Indian mustard (B. juncea), and white mustard
-The seeds are sun dried first, cleaned and then put in to the Gaana . The mustard oil is extracted at room temperature. The wood absorbs heat and maintains atmospheric temperature in oil extraction.
-The raw material of mustard seeds is pressed with wood mill until it expels the oil. The extracted oil is stored in the Containers and is subjected to the sunlight. Once the sediments settle, it is then filtered and finally sent for packing.
-
-								</div>
+								<div class="panel-body"></div>
 							</div>
 						</div>
 						</div>
@@ -181,59 +195,7 @@ The raw material of mustard seeds is pressed with wood mill until it expels the 
 				<h2>RELATED PRODUCTS</h2>
 			</div>
 			<div class="product-slider owl-carousel">
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="./img/product-3.jfif" alt="" widht="264px" height ="400px">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>₹1205,00</h6>
-						<p>Musturd Oil</p>
-					</div>
-				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<div class="tag-new">New</div>
-						<img src="./img/product-1.jpg" alt="" widht="264px" height ="400px">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>₹1205,00</h6>
-						<p>Musturd Oil</p>
-					</div>
-				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="./img/product-2.png" alt="" widht="264px" height ="400px">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>₹1205,00</h6>
-						<p>Musturd Oil</p>
-					</div>
-				</div>
-				<div class="product-item">
-						<div class="pi-pic">
-							<img src="./img/product-4.jfif" alt="" widht="264px" height ="400px">
-							<div class="pi-links">
-								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-							</div>
-						</div>
-						<div class="pi-text">
-						<h6>₹1205,00</h6>
-						<p>Musturd Oil</p>
-					</div>
-					</div>
+			
 			</div>
 		</div>
 	</section>
@@ -307,6 +269,6 @@ The raw material of mustard seeds is pressed with wood mill until it expels the 
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>
-
+    <script src="js/components/productDetails.js"></script>
 	</body>
 </html>
