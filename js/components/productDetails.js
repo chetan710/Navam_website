@@ -25,6 +25,7 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         isAnonymous = user.isAnonymous;
         if (!user.isAnonymous) {
+            $getUserDetails();
             $(productDetails_page.sign_in_profile).hide();
             $(productDetails_page.sign_out_profile).show();
             $(productDetails_page.signed_in_profile).show();
@@ -48,7 +49,12 @@ firebase.auth().onAuthStateChanged((user) => {
     getRatings("load");
     $getCartItem();
 });
-
+function $getUserDetails() {
+    return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+        if (snapshot.val())
+        $(productDetails_page.signed_in_profile).find('a').html("Welcome " +snapshot.val().name);
+    });
+}
 $(productDetails_page.sign_out_profile).click(function() {
     firebase.auth().signOut().then(function() {
         window.location.href = "index.html"

@@ -38,6 +38,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 
     $getCartItem();
+    $(shop_page.quantity).eq(0).find('label').css('background-color','#f51167')
     $loadAllProducts(250);
 });
 
@@ -60,7 +61,8 @@ function $fadeInLoader() {
 }
 $(shop_page.quantity).click(function(e) {
     e.preventDefault()
-    $()
+    $(shop_page.quantity).find('label').css('background-color','')
+    $(this).find('label').css('background-color','#f51167')
     let $selectedQuantity = $(this).find('label').text().split("ml")[0].trim();
     $fadeInLoader();
     $loadAllProducts(parseInt($selectedQuantity))

@@ -27,7 +27,6 @@ firebase.auth().onAuthStateChanged((user) => {
             $(checkout_page.sign_in_profile).hide();
             $(checkout_page.sign_out_profile).show();
             $(checkout_page.signed_in_profile).show();
-            $(checkout_page.signed_in_profile).find('a').html("Welcome");
         } else {
             window.location.href = "index.html";
             $(checkout_page.sign_in_profile).show();
@@ -106,6 +105,12 @@ function getCartItems(cartType) {
                 });
             });
             $fadeOutLoader();
+        } else{
+
+        $(checkout_page.message_section).find("h1").text("No Products in the cart to place Order!!!");
+        $(checkout_page.details_section).hide();
+        $(checkout_page.message_section).show();
+        $fadeOutLoader();
         }
     });
 }

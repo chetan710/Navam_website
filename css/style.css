@@ -2282,6 +2282,9 @@ ol {
 	.site-logo {
 		margin-bottom: 20px;
 	}
+	.site-logo img {
+		max-width: 50%;
+	}
 	.header-search-form {
 		margin-bottom: 15px;
 	}
