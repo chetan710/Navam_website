@@ -2024,7 +2024,7 @@ ol {
 }
 
 .checkout-cart {
-	background: #f0f0f0;
+	background: #7cdbd6;
 	padding: 40px 24px 30px;
 	border-radius: 25px;
 }
@@ -2082,7 +2082,7 @@ ol {
 
 .checkout-cart .price-list li span {
 	float: right;
-	width: 60px;
+	width: 100px;
 	text-align: left;
 }
 
@@ -2436,4 +2436,7 @@ ol {
 }
 .about-image {
 	margin-bottom: 30px;
+}
+.reset-password-text {
+	text-align: center;
 }

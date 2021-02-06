@@ -10,11 +10,14 @@ var checkout_page = {
     "place_order": ".submit-order-btn",
     "message_section": ".message-section",
     "details_section": ".details-section",
-    "sign_out_profile": ".sign-out-profile"
+    "sign_out_profile": ".sign-out-profile",
+    "sgst" :".sgst",
+    "cgst" :".cgst"
 }
 
 var isAnonymous;
 var isSuccessFull = true;
+var orderId = new Date().getTime();
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -55,6 +58,7 @@ $(checkout_page.sign_out_profile).click(function() {
 function $getUserDetails() {
     return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
         if (snapshot.val()) {
+            $(checkout_page.signed_in_profile).find('a').html("Welcome " +snapshot.val().name);
             $("input[name=name]").val(snapshot.val().name);
             $("input[name=phone]").val(snapshot.val().phone);
             $("input[name=address]").val(snapshot.val().address);
@@ -63,6 +67,7 @@ function $getUserDetails() {
         }
     });
 }
+
 
 function $fadeInLoader() {
     $(checkout_page.loader).show();
@@ -92,7 +97,6 @@ function $getCartItem() {
 function getCartItems(cartType) {
     return firebase.database().ref('/Cart/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
         if (snapshot.val()) {
-            var orderId = new Date().getTime();
             snapshot.forEach(function(product) {
                 var productId = product.key;
                 product.forEach(function(quantity) {
@@ -138,7 +142,9 @@ function getTotalCartAmount() {
 
     }
     $(checkout_page.price_list).find('li:first').find('span').text('₹' + totalAmount);
-    $(checkout_page.price_list).find('li:last').find('span').text('₹' + totalAmount);
+    $(checkout_page.cgst).find('span').text('₹'+((totalAmount*5)/100)/2)
+    $(checkout_page.sgst).find('span').text('₹'+((totalAmount*5)/100)/2)
+    $(checkout_page.price_list).find('li:last').find('span').text('₹' + ((totalAmount*5)/100 + totalAmount));
 }
 
 $(checkout_page.place_order).click(function(e) {
@@ -146,6 +152,7 @@ $(checkout_page.place_order).click(function(e) {
     $fadeInLoader();
     getCartItems("set");
     if (isSuccessFull) {
+        sendEmail( $("input[name=name]").val(), new Date().getTime())
         $(checkout_page.message_section).find("h1").text("Thank You for placing order");
         $(checkout_page.message_section).find("p").text("Your order is placed successfully!!! Our customer executive will contact you for payment details");
         $(checkout_page.details_section).hide();
@@ -187,7 +194,17 @@ firebase.database().ref('orders/' + firebase.auth().currentUser.uid + "/" + orde
 }
 
 
-
+function sendEmail( name, orderId) {
+    Email.send({
+            Host: "smtp.gmail.com",
+            Username: "navamstore@gmail.com",
+            Password: "opshblhtfnyesfec",
+            To: "akshaygowda0892@gmail.com",
+            From: "navamstore@gmailcom",
+            Subject: "Hola New Order #"+orderId+" placed!!!",
+            Body: "New Order has been been placed by " +name+"! Please access Navam's app to view order details!<br> OrderId : #"+orderId,
+        })
+}
 
 function removeCartItems(productId, productNoOfItems, quantity) {
     var ref = firebase.database().ref('Cart/' + firebase.auth().currentUser.uid + "/" + productId + "/" + quantity);

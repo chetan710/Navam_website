@@ -12,7 +12,9 @@ var myorders_page = {
     "shopping_card": ".shopping-card",
     "sign_out_profile": ".sign-out-profile",
     "product_list": ".product-list",
-    "price_list": ".price-list"
+    "price_list": ".price-list",
+    "sgst" :".sgst",
+    "cgst" :".cgst"
 }
 
 var isAnonymous;
@@ -21,10 +23,10 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         isAnonymous = user.isAnonymous;
         if (!user.isAnonymous) {
+            $getUserDetails()
             $(myorders_page.sign_in_profile).hide();
             $(myorders_page.sign_out_profile).show();
             $(myorders_page.signed_in_profile).show();
-            $(myorders_page.signed_in_profile).find('a').html("Welcome");
         } else {
 
             $(myorders_page.sign_in_profile).show();
@@ -43,6 +45,13 @@ firebase.auth().onAuthStateChanged((user) => {
     $getCartItem();
     getOrders();
 });
+
+function $getUserDetails() {
+    return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+        if (snapshot.val())
+        $(myorders_page.signed_in_profile).find('a').html("Welcome " +snapshot.val().name);
+    });
+}
 
 function $getCartItem() {
     return firebase.database().ref('Cart/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
@@ -65,10 +74,13 @@ function getOrders() {
         return firebase.database().ref('/orders/' + firebase.auth().currentUser.uid + "/" + orderId).once('value').then(function(snapshot) {
             if (snapshot.val()) {
                 snapshot.forEach(function(products) {
-
-
-                  $(myorders_page.price_list).find('li:first').find('span').text(products.key==="total_amount" ? products.val() :"");
-                   $(myorders_page.price_list).find('li:last').find('span').text(products.key==="total_amount" ? products.val() :"");
+                    if(products.key==="total_amount") {
+                        var GSTAmount = ((products.val().split('₹')[1]*5)/100);
+            $(myorders_page.price_list).find('li:first').find('span').text( products.val());
+            $(myorders_page.cgst).find('span').text('₹' + GSTAmount/2)
+            $(myorders_page.sgst).find('span').text('₹'+ GSTAmount/2)
+            $(myorders_page.price_list).find('li:last').find('span').text('₹' + (parseFloat(GSTAmount) + parseFloat(products.val().split('₹')[1])));
+        }
                     if(products.key!=="order_date" ||products.key!=="order_time"  ||products.key!=="total_amount" ) {
                     products.forEach(function(quantity) {
                         var productName = quantity.val().product_name;

@@ -7,6 +7,7 @@ var contactus_page = {
     "sign_out_profile": ".sign-out-profile",
     "signed_in_profile": ".signed-in-profile",
     "shopping_card": ".shopping-card",
+    "submit" : ".contact-us"
 }
 
 var isAnonymous;
@@ -60,7 +61,7 @@ function $getCartItem() {
             });
             $(contactus_page.shopping_card).find("span").text(index);
         }
-        
+
     $fadeOutLoader();
     }); 
 
@@ -76,3 +77,59 @@ function $fadeOutLoader() {
     $(contactus_page.loader).fadeOut();
     $(contactus_page.pre_loader).delay(1000).fadeOut("slow");
 }
+
+function sendEmail(from, to, subject, phone, name, message) {
+    Email.send({
+            Host: "smtp.gmail.com",
+            Username: "navamstore@gmail.com",
+            Password: "opshblhtfnyesfec",
+            To: to,
+            From: from,
+            Subject: subject,
+            Body: "Name:" + name + "<br>Phone:" + phone + "<br>Message: " + message,
+        })
+        .then(function(message) {
+            $("form[name='contact-form']")[0].reset();
+        });
+}
+
+
+$(document).ready(function() {
+    $("form[name='contact-form']").validate({
+        rules: {
+            name: "required",
+            description: "required",
+            subject: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 10
+            },
+        },
+        messages: {
+            name: "Please enter your name",
+            email: "Please enter a valid email address",
+            phone: "Please enter your valid phone number",
+            subject: "Please enter subject",
+            description: "Please enter the details of the jewelery you need"
+        },
+    });
+
+    $(contactus_page.submit).click(function(e) {
+        e.preventDefault();
+        if ($("form[name='contact-form']").valid()) {
+            let from = $("input[name='email']").val()
+            let to = "akshaygowda0892@gmail.com"
+            let phone = $("input[name='phone']").val()
+            let message = $("textarea[name='description']").val()
+            let subject = $("input[name='subject']").val()
+            let name = $("input[name='name']").val()
+            sendEmail(from, to, subject, phone, name, message);
+        }
+    });
+});

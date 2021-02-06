@@ -14,7 +14,8 @@ var cart_page = {
     "shopping_card": ".shopping-card",
     "sign_out_profile": ".sign-out-profile",
     "add_cart": ".add-card",
-    "product_section": '.product-slider'
+    "product_section": '.product-slider',
+    "remove" : ".remove-item"
 }
 
 var isAnonymous;
@@ -23,10 +24,10 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         isAnonymous = user.isAnonymous;
         if (!user.isAnonymous) {
+            $getUserDetails();
             $(cart_page.sign_in_profile).hide();
             $(cart_page.sign_out_profile).show();
             $(cart_page.signed_in_profile).show();
-            $(cart_page.signed_in_profile).find('a').html("Welcome");
         } else {
 
             $(cart_page.sign_in_profile).show();
@@ -46,6 +47,15 @@ firebase.auth().onAuthStateChanged((user) => {
     $getCartItem();
     $loadAllProducts(250)
 });
+
+
+function $getUserDetails() {
+    return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+        if (snapshot.val())
+        $(cart_page.signed_in_profile).find('a').html("Welcome " +snapshot.val().name);
+    });
+}
+
 
 
 function $getCartItem() {
@@ -120,8 +130,8 @@ function getProductDetails(productId, quantity, productNoOfItems) {
 function appendCartItems(productName, productImage, productPrice, productAvailability, productId, quantity, productNoOfItems) {
     $('tbody').append(
         '<tr><td class="product-col"> <img src=' + productImage + '  alt=' + productName + '> <div class="pc-title"><h4>' + productName + '</h4><p>₹' + productPrice + '</p><p>' + quantity + 'ml</p></div></td>' +
-        '<td class="quy-col"><div class="quantity"><div class="pro-qty"><span class="dec qtybtn">-</span><input type="text" value=' + productNoOfItems + ' productquantity=' + quantity + ' productid=' + productId + ' productprice=' + productPrice + '><span class="inc qtybtn">+</span></div></div></td>' +
-        '<td class="total-col product-availability"><h4>' + productAvailability + '</h4></td><td class="total-col product-price"><h4>₹' + productPrice * productNoOfItems + '</h4></td></tr>');
+        '<td class="quy-col"><div class="quantity"><div class="pro-qty"><span class="dec qtybtn">-</span><input disabled type="text" value=' + productNoOfItems + ' productquantity=' + quantity + ' productid=' + productId + ' productprice=' + productPrice + '><span class="inc qtybtn">+</span></div></div></td>' +
+        '<td class="total-col product-availability"><h4>' + productAvailability + '</h4></td><td class="total-col product-price"><h4>₹' + productPrice * productNoOfItems + '</h4></td><td class="total-col product-price"><a class="remove-item" productid="'+productId+'" quantity="'+quantity+'" href="javascript:void(0)">Remove</a></td></tr>');
 }
 
 
@@ -147,6 +157,19 @@ $(document).on('click', '.qtybtn', function() {
     }
 });
 
+$(document).on('click', cart_page.remove, function() {
+    $fadeInLoader();
+var adaRef = firebase.database().ref("Cart/"+firebase.auth().currentUser.uid +"/"+$(this).attr("productId")+"/"+$(this).attr("quantity"));
+adaRef.remove()
+  .then(function() {
+    $('.cart-table-warp table tbody tr').remove()
+    getCartItems();
+    $getCartItem();
+  })
+  .catch(function(error) {
+    $fadeOutLoader();
+  });
+});
 function updateCart($button, type, productId, productQuantity, newVal) {
 
     firebase.database().ref('Cart/' + firebase.auth().currentUser.uid + "/" + productId + "/" + productQuantity).set({

@@ -15,7 +15,9 @@ var productDetails_page = {
     "sign_out_profile": ".sign-out-profile",
     "add_cart": ".add-card",
     "add_cart_main": ".add-card-main",
-    "product_section": '.product-slider'
+    "product_section": '.product-slider',
+    "rating": ".rating",
+    "total_count": ".total-count"
 }
 var isAnonymous;
 
@@ -43,6 +45,7 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log("oops something went wrong")
     }
     getProductDetails();
+    getRatings("load");
     $getCartItem();
 });
 
@@ -53,6 +56,48 @@ $(productDetails_page.sign_out_profile).click(function() {
         console.error('Sign Out Error', error);
     });
 });
+$(productDetails_page.rating).click(function() {
+    $fadeInLoader();
+    let rated = $(this).index() + 1;
+    firebase.database().ref('product-scores/ratings/' + window.location.hash.substr(1).split("/")[0] + "/" + rated).set({
+        rated: eval($(productDetails_page.rating).eq($(this).index()).attr("total-ratings")) + 1,
+    }).then((snapshot) => {
+        firebase.database().ref('product-scores/ratings/' + window.location.hash.substr(1).split("/")[0] + "/average").set({
+        average: 0,
+    }).then((snapshot) => {
+        getRatings("");
+        $fadeOutLoader();
+    })
+    })
+
+});
+function getRatings(type) {
+    var totalValues = 0
+    var averageRating = 0
+    return firebase.database().ref('product-scores/ratings/' + window.location.hash.substr(1).split("/")[0]).once('value').then(function(snapshot) {
+        if (snapshot.val()) {
+            snapshot.forEach(function(items) {
+                if(items.key!=="average") {
+                $(productDetails_page.rating).eq(parseInt(items.key) - 1).attr("total-ratings", items.val().rated);
+                totalValues = totalValues + (items.key * items.val().rated)
+                averageRating = averageRating + items.val().rated
+            }
+            });
+
+        $(productDetails_page.total_count).text("("+averageRating + ")")
+        let average = Math.round((totalValues / averageRating));
+        console.log(average)
+        for (var i = 0; i < average; i++) {
+            $(productDetails_page.rating).eq(i).removeClass('fa-star-o').addClass('fa-star')
+        }
+        if (type !== 'load') {
+            firebase.database().ref('product-scores/ratings/' + window.location.hash.substr(1).split("/")[0] +"/average").set({
+                average: average
+            })
+        }
+        }
+    });
+}
 
 function getProductDetails() {
     let productId = window.location.hash.substr(1).split("/")[0];
@@ -147,29 +192,30 @@ function $getCartItem() {
     });
 
 }
+
 function $createCarouselForProducts() {
-$('.product-slider').owlCarousel({
-    loop: true,
-    nav: true,
-    dots: false,
-    margin: 30,
-    autoplay: true,
-    navText: ['<i class="flaticon-left-arrow-1"></i>', '<i class="flaticon-right-arrow-1"></i>'],
-    responsive: {
-        0: {
-            items: 1,
-        },
-        480: {
-            items: 2,
-        },
-        768: {
-            items: 3,
-        },
-        1200: {
-            items: 4,
+    $('.product-slider').owlCarousel({
+        loop: true,
+        nav: true,
+        dots: false,
+        margin: 30,
+        autoplay: true,
+        navText: ['<i class="flaticon-left-arrow-1"></i>', '<i class="flaticon-right-arrow-1"></i>'],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            480: {
+                items: 2,
+            },
+            768: {
+                items: 3,
+            },
+            1200: {
+                items: 4,
+            }
         }
-    }
-});
+    });
 }
 
 function $loadAllProducts(quantity) {
@@ -222,7 +268,7 @@ $(document).on('click', productDetails_page.add_cart, function(e) {
 });
 
 function addToCart(productId, productQuantity, productAmount) {
-    firebase.database().ref('Cart/' + firebase.auth().currentUser.uid + "/" + productId+"/"+productQuantity).set({
+    firebase.database().ref('Cart/' + firebase.auth().currentUser.uid + "/" + productId + "/" + productQuantity).set({
         productQuantity: productQuantity,
         no_of_items: 1
     }).then((snapshot) => {
@@ -232,7 +278,7 @@ function addToCart(productId, productQuantity, productAmount) {
 }
 
 $(document).on('click', '.product-item', function() {
-    let hashValue = $(this).attr('id') +"/"+ $(this).find('.pi-text').attr('productQuantity');
+    let hashValue = $(this).attr('id') + "/" + $(this).find('.pi-text').attr('productQuantity');
     window.location.href = "productdetails.html#" + hashValue
     location.reload();
 })

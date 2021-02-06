@@ -23,10 +23,10 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         isAnonymous = user.isAnonymous;
         if (!user.isAnonymous) {
+            $getUserDetails();
             $(myorders_page.sign_in_profile).hide();
             $(myorders_page.sign_out_profile).show();
             $(myorders_page.signed_in_profile).show();
-            $(myorders_page.signed_in_profile).find('a').html("Welcome");
         } else {
 
             $(myorders_page.sign_in_profile).show();
@@ -45,6 +45,13 @@ firebase.auth().onAuthStateChanged((user) => {
     $getCartItem();
      getOrders();
 });
+
+function $getUserDetails() {
+    return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+        if (snapshot.val())
+        $(myorders_page.signed_in_profile).find('a').html("Welcome " +snapshot.val().name);
+    });
+}
 
 function $getCartItem() {
     return firebase.database().ref('Cart/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {

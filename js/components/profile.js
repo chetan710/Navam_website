@@ -1,7 +1,7 @@
 var profile_page = {
     "$create_profile": ".create-profile",
     "$sign_in": ".login",
-    "$reset_password": "reset-password",
+    "$reset_password": ".reset-password",
     "sign_out_profile": ".sign-out-profile",
     "sign_in_profile": ".sign-in-profile",
     "sign_out_profile": ".sign-out-profile",
@@ -13,10 +13,11 @@ var profile_page = {
 $(document).ready(function() {
     $validateForm();
     $validateLoginForm();
+    $validateResetForm();
     $(profile_page.$create_profile).click(function(e) {
         e.preventDefault();
         if ($("form[name='contact-form']").valid()) {
-             $fadeInLoader();
+            $fadeInLoader();
             $craeteUserProfile();
         }
     });
@@ -26,10 +27,20 @@ $(document).ready(function() {
             $signInUser();
         }
     });
-     $(profile_page.$reset_password).click(function(e) {
-        e.preventDefault();
-        firebase.auth().sendPasswordResetEmail('user@example.com');
-        location.reload();
+    $(profile_page.$reset_password).click(function(e) {
+        if ($("form[name='reset-password-form']").valid()) {
+            $fadeInLoader();
+            e.preventDefault();
+            firebase.auth().sendPasswordResetEmail($("input[name=reset_email]").val()).then(() => {
+                    $("input[name=reset_email]").val("");
+                    $("form[name='reset-password-form']").next('label').remove();
+                    $fadeOutLoader();
+                })
+                .catch((error) => {
+                    $fadeOutLoader();
+                    $(profile_page.$reset_password).parent('form').after('<label class="error">' + error.message + '</label>')
+                });
+        }
     });
 });
 
@@ -66,7 +77,7 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         console.log("oops something went wrong")
     }
-        $getCartItem();
+    $getCartItem();
 });
 
 function $getCartItem() {
@@ -74,19 +85,21 @@ function $getCartItem() {
         if (snapshot.val()) {
             let index = 0;
             snapshot.forEach(function(items) {
-                items.forEach(function(subItems){
-                 index++
+                items.forEach(function(subItems) {
+                    index++
                 });
             });
             $(shop_page.shopping_card).find("span").text(index);
         }
-         $fadeOutLoader();
-    }); 
+        $fadeOutLoader();
+    });
 
 }
 
 $(profile_page.sign_out_profile).click(function() {
-    firebase.auth().signOut().then(function() {window.location.href="index.html"}, function(error) {
+    firebase.auth().signOut().then(function() {
+        window.location.href = "index.html"
+    }, function(error) {
         console.error('Sign Out Error', error);
     });
 });
@@ -102,16 +115,16 @@ function $craeteUserProfile() {
                 address: $("textarea[name=address]").val(),
                 zipCode: $("input[name=zipCode]").val()
             }).then((user) => {
-                window.location.href="index.html"
-            
-        })
+                window.location.href = "index.html"
+
+            })
         }
     }).catch(function(error) {
         console.log('there was an error');
         var errorCode = error.code;
         var errorMessage = error.message;
-         $(profile_page.$create_profile).parent('form').after('<label class="error">'+errorMessage+'</label>')
-         $fadeOutLoader();
+        $(profile_page.$create_profile).parent('form').after('<label class="error">' + errorMessage + '</label>')
+        $fadeOutLoader();
         console.log(errorCode + ' - ' + errorMessage);
     });
 }
@@ -121,14 +134,29 @@ function $signInUser() {
     firebase.auth().signInWithEmailAndPassword($("input[name=userName]").val(), $("input[name=userPassword]").val())
         .then((user) => {
             if (user) {
-                window.location.href="index.html"
+                window.location.href = "index.html"
             }
         })
         .catch(function(error) {
-            $(profile_page.$sign_in).parent('form').after('<label class="error">'+error.message+'</label>')
+            $(profile_page.$sign_in).parent('form').after('<label class="error">' + error.message + '</label>')
             $fadeOutLoader();
         });
 }
+
+function $validateResetForm() {
+    $("form[name='reset-password-form']").validate({
+        rules: {
+            reset_email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            reset_email: "Please enter a valid email address"
+        },
+    });
+}
+
 
 function $validateForm() {
     $("form[name='contact-form']").validate({
@@ -162,7 +190,7 @@ function $validateForm() {
             lastName: "Please enter your first name",
             address: "Please enter your address",
             email: "Please enter a valid email address",
-            password: "Please enter password",
+            password: "Please enter valid password with atleast 6 characters",
             phone: "Please enter  valid phone number",
             zip_code: "Please enter Zip Code",
             address: "Please enter address"
@@ -186,4 +214,3 @@ function $validateLoginForm() {
         },
     });
 }
-

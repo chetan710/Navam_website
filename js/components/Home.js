@@ -8,7 +8,8 @@ var home_page = {
     "signed_in_profile": ".signed-in-profile",
     "shopping_card": ".shopping-card",
     "product_section": ".product-section",
-    "add_cart": ".add-card"
+    "add_cart": ".add-card",
+    "product_item": ".product-item"
 }
 
 var isAnonymous;
@@ -39,6 +40,10 @@ firebase.auth().onAuthStateChanged((user) => {
     $getCartItem();
     $loadHeroSlider();
 });
+$(document).on('click', home_page.product_item, function() {
+    let hashValue = $(this).parent().attr('id') +"/"+ $(this).find('.pi-text').attr('productQuantity');
+    window.location.href = "productdetails.html#" + hashValue
+})
 function $getUserDetails() {
     return firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
         if (snapshot.val())
@@ -99,6 +104,7 @@ function createOwlCarouselForHeroSlider() {
         nav: true,
         items: 1,
         dots: true,
+        autoplay: true,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         navText: ['<i class="flaticon-left-arrow-1"></i>', '<i class="flaticon-right-arrow-1"></i>'],
@@ -178,7 +184,7 @@ function $loadAllProducts(quantity) {
                 $appendProductsSection(products, quantity)
             });
             $fadeOutLoader();
-            
+
         }
     });
 }
